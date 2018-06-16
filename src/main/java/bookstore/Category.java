@@ -1,5 +1,6 @@
 package bookstore;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import lombok.Setter;
 // bibliotece Lombok
 @Setter
 @Getter
+@Builder
 @NoArgsConstructor
 public class Category {
     private Integer id;
