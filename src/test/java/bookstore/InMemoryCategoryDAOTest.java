@@ -1,6 +1,7 @@
 package bookstore;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -10,8 +11,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryCategoryDAOTest {
-    private InMemoryCategoryDAO inMemoryCategoryDAO =
-            Mockito.mock(InMemoryCategoryDAO.class);
+//    private InMemoryCategoryDAO inMemoryCategoryDAO =
+//            Mockito.spy(InMemoryCategoryDAO);
+
+
 
     @Test
     void shouldReturnListOfCategoriesFromFile() {
