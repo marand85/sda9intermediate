@@ -15,6 +15,26 @@ import java.util.stream.Collectors;
 public class InMemoryCategoryDAO {
     // DAO Data Access Object
     // DTO Data Transfer Object
+    private static InMemoryCategoryDAO instance;
+    private List<Category> categoriesInMemory;
+
+    private InMemoryCategoryDAO() {
+        categoriesInMemory = initializeCategories();
+    }
+
+    public static InMemoryCategoryDAO getInstance() {
+        // sprawdzamy z uwagi na wydajnosc synchronized
+        if (instance == null) {
+            // z uwagi na wielowątkowość, by na pewno
+            // tylko jeden wątek utworzył instancję
+            synchronized (InMemoryCategoryDAO.class) {
+                if (instance == null) {
+                    instance = new InMemoryCategoryDAO();
+                }
+            }
+        }
+        return instance;
+    }
 
     public List<Category> initializeCategories() {
         List<String> linesFromFile = null;
