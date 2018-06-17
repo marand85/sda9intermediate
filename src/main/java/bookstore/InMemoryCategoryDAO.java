@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-public class InMemoryCategoryDAO {
+public class InMemoryCategoryDAO implements CategorySource {
     // DAO Data Access Object
     // DTO Data Transfer Object
     private static InMemoryCategoryDAO instance;
@@ -36,7 +36,7 @@ public class InMemoryCategoryDAO {
         return instance;
     }
 
-    public List<Category> initializeCategories() {
+    private List<Category> initializeCategories() {
         List<String> linesFromFile = null;
         try {
             linesFromFile = Files.readAllLines(Paths
@@ -86,5 +86,25 @@ public class InMemoryCategoryDAO {
     private int countSpaces(Category category) {
         return category.getName().startsWith(" ") ?
                 category.getName().split("\\S")[0].length() : 0;
+    }
+
+    @Override
+    public void updateCategory(Category category) {
+
+    }
+
+    @Override
+    public List<Category> findCategoriesByName(String name) {
+        return null;
+    }
+
+    @Override
+    public List<Category> getCategories() {
+        return null;
+    }
+
+    @Override
+    public Category findCategoryById(Integer id) {
+        return null;
     }
 }
