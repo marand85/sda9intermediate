@@ -18,8 +18,15 @@ public class InMemoryCategoryDAO implements CategorySource {
     // DTO Data Transfer Object
     private static InMemoryCategoryDAO instance;
     private List<Category> categoriesInMemory;
+    private static CategoryDataSource categoryDataSource;
+
 
     private InMemoryCategoryDAO() {
+        categoriesInMemory = initializeCategories();
+    }
+
+    protected InMemoryCategoryDAO(CategoryDataSource categoryDataSource){
+        this.categoryDataSource = categoryDataSource;
         categoriesInMemory = initializeCategories();
     }
 
@@ -30,7 +37,8 @@ public class InMemoryCategoryDAO implements CategorySource {
             // tylko jeden wątek utworzył instancję
             synchronized (InMemoryCategoryDAO.class) {
                 if (instance == null) {
-                    instance = new InMemoryCategoryDAO();
+                    CategoryDataSource categoryDataSource = new CategoryDataSource();
+                    instance = new InMemoryCategoryDAO(categoryDataSource);
                 }
             }
         }

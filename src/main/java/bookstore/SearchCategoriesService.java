@@ -12,7 +12,7 @@ public class SearchCategoriesService {
                 .stream()
                 .map(category -> buildAdminCategoryDTO(category))
                 .peek(e ->
-                        e.setParent(findParent(e)
+                        e.setParentCat(findParent(e)
                                 .map(m -> buildAdminCategoryDTO(m))
                                 .orElse(null)))
                 .peek(e -> {
@@ -37,14 +37,14 @@ public class SearchCategoriesService {
     private AdminCategoryDTO buildAdminCategoryDTO(Category category) {
         return AdminCategoryDTO.builder()
                 .id(category.getId().toString())
-                .parentCategoryId(category.getParentId().toString())
+                .parentCategoryId(category.getParentId().toString()) //todo
                 .text(category.getName())
                 .state(new CategoryState())
                 .build();
     }
 
     private void openParents(AdminCategoryDTO child) {
-        AdminCategoryDTO parent = child.getParent();
+        AdminCategoryDTO parent = child.getParentCat();
         if (parent == null) {
             return;
         }
