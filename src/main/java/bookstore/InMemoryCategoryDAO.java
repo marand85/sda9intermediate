@@ -3,6 +3,7 @@ package bookstore;
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -25,7 +26,7 @@ public class InMemoryCategoryDAO implements CategorySource {
         categoriesInMemory = initializeCategories();
     }
 
-    protected InMemoryCategoryDAO(CategoryDataSource categoryDataSource){
+    protected InMemoryCategoryDAO(CategoryDataSource categoryDataSource) {
         this.categoryDataSource = categoryDataSource;
         categoriesInMemory = initializeCategories();
     }
@@ -53,9 +54,11 @@ public class InMemoryCategoryDAO implements CategorySource {
     public List<String> readDataFromFile() {
         List<String> linesFromFile = null;
         try {
-            linesFromFile = Files.readAllLines(Paths
-                    .get("C:\\projects\\sda9intermediate\\src\\main\\resources\\kategorie.txt"), Charset.forName("UNICODE"));
+            linesFromFile = Files.readAllLines(
+                    Paths.get(this.getClass().getClassLoader().getResource("kategorie2.txt").toURI()), Charset.forName("UNICODE"));
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
             e.printStackTrace();
         }
         return linesFromFile;
@@ -98,7 +101,7 @@ public class InMemoryCategoryDAO implements CategorySource {
     }
 
     private int countSpaces(Category category) {
-        return category.getName().startsWith(" ") ?
+        return category.getName().startsWith(" ") || category.getName().startsWith("\t") ?
                 category.getName().split("\\S")[0].length() : 0;
     }
 
@@ -111,7 +114,7 @@ public class InMemoryCategoryDAO implements CategorySource {
     public List<Category> findCategoriesByName(String name) {
         return categoriesInMemory
                 .stream()
-                .filter(category->category.getName().equals(name))
+                .filter(category -> category.getName().equals(name))
                 .collect(Collectors.toList());
     }
 
