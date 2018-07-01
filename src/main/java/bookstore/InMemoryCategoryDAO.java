@@ -1,5 +1,6 @@
 package bookstore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class InMemoryCategoryDAO {
@@ -8,6 +9,7 @@ public class InMemoryCategoryDAO {
 
     public List<Category> initializeCategories() {
 
-        return null;
+        return new ArrayList<>();//konflikt
     }
+
 }
