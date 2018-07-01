@@ -27,6 +27,7 @@ class UserValidationServiceTest {
         Assertions.assertTrue(
                 errorsMap.containsKey(UserValidationService.BIRTH_DATA_VAL_RES));
     }
+
     @Test
     void shouldNotPassValidationWithNullValues() {
         CustomerRegistrationDTO customer = new CustomerRegistrationDTO();
@@ -35,6 +36,25 @@ class UserValidationServiceTest {
 
         Assertions.assertTrue(!errorsMap.isEmpty());
     }
+    @Test
+    void shouldPassValidationWithWhiteSpaces() {
+        CustomerRegistrationDTO customer  = createUserWithDataWithWhiteSpaces();
+        UserValidationService userValidationService = new UserValidationService();
+        Map<String, String> errorsMap = userValidationService.validateUserData(customer);
+
+        Assertions.assertTrue(errorsMap.isEmpty());
+    }
+    @Test
+    void shouldNotPassValidationWithBrokenPhone() {
+        CustomerRegistrationDTO customer  = createUserWithDataWithWhiteSpaces();
+        customer.setPhone("789456a23");
+        UserValidationService userValidationService = new UserValidationService();
+        Map<String, String> errorsMap = userValidationService.validateUserData(customer);
+
+        Assertions.assertTrue(
+                errorsMap.containsKey(UserValidationService.PHONE_VAL_RES));
+    }
+
 
 
     private CustomerRegistrationDTO createUserWithProperData() {
@@ -50,6 +70,23 @@ class UserValidationServiceTest {
         customer.setEmail("sdafadsgf@wp.pl");
         customer.setPassword("assdddsfssdfg");
         customer.setPhone("789456123");
+        customer.setPreferEmails(false);
+        return customer;
+    }
+
+    private CustomerRegistrationDTO createUserWithDataWithWhiteSpaces() {
+        CustomerRegistrationDTO customer = new CustomerRegistrationDTO();
+        customer.setFirstName(" Krzysztof ");
+        customer.setLastName(" Adfsfds ");
+        customer.setZipCode(" 87-123");
+        customer.setCity(" łódź ");
+        customer.setCountry(" Poland ");
+        customer.setStreet(" Zielona ");
+        customer.setBirthDate(" 1998-10-13");
+        customer.setPesel(" 78945612321 ");
+        customer.setEmail(" sdafadsgf@wp.pl ");
+        customer.setPassword(" assdddsfssdfg ");
+        customer.setPhone(" 789456123 ");
         customer.setPreferEmails(false);
         return customer;
     }
