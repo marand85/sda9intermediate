@@ -35,13 +35,13 @@ public class UserValidationService {
             errorsResult.put
                     (ZIP_CODE_VAL_RES, "Zły format. Kod pocztowy powinien mieć format 12-345.");
         }
-        if (StringUtils.isBlank(dto.getCity().trim())) {
+        if (StringUtils.isBlank(dto.getCity())) {
             errorsResult.put(CITY_VAL_RES, "Podanie nazwy miasta jest wymagane.");
         }
-        if (StringUtils.isBlank(dto.getCountry().trim())) {
+        if (StringUtils.isBlank(dto.getCountry())) {
             errorsResult.put(COUNTRY_VAL_RES, "Podanie nazwy kraju jest wymagane.");
         }
-        if (StringUtils.isBlank(dto.getStreet().trim())) {
+        if (StringUtils.isBlank(dto.getStreet())) {
             errorsResult.put(STREET_VAL_RES, "Podanie nazwy ulicy jest wymagane.");
         }
         if (StringUtils.isBlank(dto.getBirthDate()) || !dto.getBirthDate().trim().matches(
