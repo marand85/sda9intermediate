@@ -10,7 +10,7 @@ public class UserRegistrationService {
         if (userExistsVer1(customer)) {
             throw new UserExistsException("User " + customer.getEmail() + " exists");
         }
-        UserRegistrationDtoToUserBuilder
+        //todo nalezy przepisac dane z  CustomerRegistrationDTO na User -> zapisujac hash hasla i potem dodac uzytkownika do listy userow w userdao
 
 
 //        if (userExistsVer2(customer)) {
