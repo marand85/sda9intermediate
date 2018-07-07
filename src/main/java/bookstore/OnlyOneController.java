@@ -16,7 +16,6 @@ public class OnlyOneController {
 
     @RequestMapping("/")
     public String welcome(Map<String, Object> model) {
-
         return "index";
     }
 
@@ -28,7 +27,19 @@ public class OnlyOneController {
         return "cats";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET) //wyswietlanie pustego formularza logowania
+    public String loginForm(Map<String, Object> model) {
+        model.put("form", new CustomerLoginDTO());
+        return "loginForm";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String loginEffect(Map<String, Object> model) {
+        new UserLoginService();
+    }
+
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET) //wyswietlanie pustego formularza
     public String registerForm(Map<String, Object> model) {
         model.put("form", new CustomerRegistrationDTO()); //pusty CustomerRegistrationDTO do przechowywania danych z formularza rejestracji
         // dodatkowo z CustomerRegistrationDto wyciagnijcie pola [street, city, country, zipCode
@@ -38,7 +49,7 @@ public class OnlyOneController {
         return "registerForm";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST) //obsluga przeslanych danych
     public String registerEffect(@ModelAttribute CustomerRegistrationDTO customerRegistrationDto, Map<String, Object> model) {
 //        CustomerRegistrationDTO registrationdto = (CustomerRegistrationDTO) model.get("customerRegistrationDto");
         Map<String, String> validationErrorsMap = new UserValidationService().validateUserData(customerRegistrationDto); //serwis do walidacji danych uzytkownika
