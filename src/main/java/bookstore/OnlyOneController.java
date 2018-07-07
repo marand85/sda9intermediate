@@ -1,10 +1,13 @@
 package bookstore;
 
+import com.google.common.collect.Lists;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 
 @Controller
 public class OnlyOneController {
@@ -12,6 +15,7 @@ public class OnlyOneController {
 
     @RequestMapping("/")
     public String welcome(Map<String, Object> model) {
+
         return "index";
     }
 
@@ -25,10 +29,10 @@ public class OnlyOneController {
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String registerForm(Map<String, Object> model) {
-        model.put("form", null); //todo tu nalezy przekazac pusty CustomerRegistrationDTO do przechowywania danych z formularza rejestracji
+        model.put("form", new CustomerRegistrationDTO()); //pusty CustomerRegistrationDTO do przechowywania danych z formularza rejestracji
                                 // dodatkowo z CustomerRegistrationDto wyciagnijcie pola [street, city, country, zipCode
                                 // do osbnej klasy UserAddress tak by sie wszystko kompilowalo i przechodzily testy - nalezy je poprawic po zmianie
-        model.put("countries", null); //todo kolekcja krajów - enum Countries (POLSKA,NIEMCY,ROSJA) z polami symbol plName
+        model.put("countries", Arrays.asList(Countries.values())); //kolekcja krajów - enum Countries (POLSKA,NIEMCY,ROSJA) z polami symbol plName
 
         return "registerForm";
     }

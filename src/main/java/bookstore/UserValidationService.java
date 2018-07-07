@@ -31,17 +31,17 @@ public class UserValidationService {
             errorsResult.put
                     (LAST_NAME_VAL_RES, "Nazwisko jest wymagane. Przynajmniej 3 znaki.");
         }
-        if (StringUtils.isBlank(dto.getZipCode()) || !dto.getZipCode().trim().matches("^[0-9]{2}-[0-9]{3}$")) {
+        if (dto.getUserAddress()==null||StringUtils.isBlank(dto.getUserAddress().getZipCode()) || !dto.getUserAddress().getZipCode().trim().matches("^[0-9]{2}-[0-9]{3}$")) {
             errorsResult.put
                     (ZIP_CODE_VAL_RES, "Zły format. Kod pocztowy powinien mieć format 12-345.");
         }
-        if (StringUtils.isBlank(dto.getCity())) {
+        if (dto.getUserAddress()==null||StringUtils.isBlank(dto.getUserAddress().getCity())) {
             errorsResult.put(CITY_VAL_RES, "Podanie nazwy miasta jest wymagane.");
         }
-        if (StringUtils.isBlank(dto.getCountry())) {
+        if (dto.getUserAddress()==null||StringUtils.isBlank(dto.getUserAddress().getCountry())) {
             errorsResult.put(COUNTRY_VAL_RES, "Podanie nazwy kraju jest wymagane.");
         }
-        if (StringUtils.isBlank(dto.getStreet())) {
+        if (dto.getUserAddress()==null||StringUtils.isBlank(dto.getUserAddress().getStreet())) {
             errorsResult.put(STREET_VAL_RES, "Podanie nazwy ulicy jest wymagane.");
         }
         if (StringUtils.isBlank(dto.getBirthDate()) || !dto.getBirthDate().trim().matches(
