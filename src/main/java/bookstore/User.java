@@ -3,11 +3,12 @@ package bookstore;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Locale;
 
 @Setter
 @Getter
-public class User {
+public class User implements Serializable {
 
     private UserAddress userAddress;
     private String firstName;

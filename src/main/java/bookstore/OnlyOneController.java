@@ -9,9 +9,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
-@Controller
+@Controller //singleton
 public class OnlyOneController {
 
+    private final UserRegistrationService userRegistrationService = new UserRegistrationService();
 
     @RequestMapping("/")
     public String welcome(Map<String, Object> model) {
@@ -49,7 +50,6 @@ public class OnlyOneController {
             return "registerForm";
         } else { //tu jest sytuacja kiedy walidacja jest ok
             try {
-                UserRegistrationService userRegistrationService = new UserRegistrationService();
                 userRegistrationService.registerUser(customerRegistrationDto);
 
                 //todo tu nalezy zarejestrowac uzytkownika przez

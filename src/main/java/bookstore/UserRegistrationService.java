@@ -24,7 +24,7 @@ public class UserRegistrationService {
 
     private boolean userExistsVer1(CustomerRegistrationDTO customer) {
         for (User user : userDAO.getUserList()) {
-            if (user.getEmail().equals(customer.getEmail())) {
+            if (user.getEmail().trim().equalsIgnoreCase(customer.getEmail().trim())) {
                 return true;
             }
         }
