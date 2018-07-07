@@ -55,7 +55,7 @@ public class OnlyOneController {
                 //todo tu nalezy zarejestrowac uzytkownika przez
                 // serwis UserRegistrationService
             } catch (UserExistsException e) {
-                model.put("userExistsException", null); //todo tu wstawcie odpowiedni komunikat "Uzytkownik isnieje" np
+                model.put("userExistsException", "Uzytkownik isnieje!!!!"); //todo tu wstawcie odpowiedni komunikat "Uzytkownik isnieje" np
                 return "registerForm";
             }
             return "registerEffect";
