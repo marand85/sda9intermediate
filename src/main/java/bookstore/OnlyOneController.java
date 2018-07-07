@@ -30,8 +30,8 @@ public class OnlyOneController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String registerForm(Map<String, Object> model) {
         model.put("form", new CustomerRegistrationDTO()); //pusty CustomerRegistrationDTO do przechowywania danych z formularza rejestracji
-                                // dodatkowo z CustomerRegistrationDto wyciagnijcie pola [street, city, country, zipCode
-                                // do osbnej klasy UserAddress tak by sie wszystko kompilowalo i przechodzily testy - nalezy je poprawic po zmianie
+        // dodatkowo z CustomerRegistrationDto wyciagnijcie pola [street, city, country, zipCode
+        // do osbnej klasy UserAddress tak by sie wszystko kompilowalo i przechodzily testy - nalezy je poprawic po zmianie
         model.put("countries", Arrays.asList(Countries.values())); //kolekcja krajów - enum Countries (POLSKA,NIEMCY,ROSJA) z polami symbol plName
 
         return "registerForm";
@@ -39,17 +39,17 @@ public class OnlyOneController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String registerEffect(@ModelAttribute CustomerRegistrationDTO customerRegistrationDto, Map<String, Object> model) {
-        CustomerRegistrationDTO registrationdto = (CustomerRegistrationDTO) model.get("customerRegistrationDto");
-        Map<String, String> validateUserBasicDataResult = null; //todo tu nalezy wywolac serwis do walidacji danych uzytkownika
-        model.put("form", registrationdto);
-        model.put("countries", null); //todo kolekcja krajów (w to miejsce wstawcie kolekcje) - enum Countries (POLSKA,NIEMCY,ROSJA) z polami symbol plName
+//        CustomerRegistrationDTO registrationdto = (CustomerRegistrationDTO) model.get("customerRegistrationDto");
+        Map<String, String> validateUserBasicDataResult = new UserValidationService().validateUserData(customerRegistrationDto); //serwis do walidacji danych uzytkownika
+        model.put("form", customerRegistrationDto);
+        model.put("countries", Arrays.asList(Countries.values())); //kolekcja krajów (w to miejsce wstawcie kolekcje) - enum Countries (POLSKA,NIEMCY,ROSJA) z polami symbol plName
 
-        if (true) { //todo tu zamiast true powinno sie znalezc sprawdzenie czy walidacja danych sie powiodla (pusta mapa) - najpierw sytuacja kiedy sie nie powiodla
+        if (!validateUserBasicDataResult.isEmpty()) { //sprawdzenie czy walidacja danych sie powiodla (pusta mapa) - najpierw sytuacja kiedy sie nie powiodla
             model.putAll(validateUserBasicDataResult);
             return "registerForm";
         } else {
             try {
-                 //todo tu nalezy zarejestrowac uzytkownika przez serwis UserRegistrationService
+                //todo tu nalezy zarejestrowac uzytkownika przez serwis UserRegistrationService
             } catch (UserExistsException e) {
                 model.put("userExistsException", null); //todo tu wstawcie odpowiedni komunikat "Uzytkownik isnieje" np
                 return "registerForm";
@@ -57,5 +57,4 @@ public class OnlyOneController {
             return "registerEffect";
         }
     }
-
 }
