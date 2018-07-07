@@ -12,5 +12,9 @@ public class UserDAO {
     public List<User> getUserList() {
         return userList;
     }
+
+    public void addUser(User user) {
+
+    }
 }
 

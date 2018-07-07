@@ -5,12 +5,14 @@ public class UserRegistrationService {
     private UserDAO userDAO = new UserDAO();
 
 
-    private void registerUser(CustomerRegistrationDTO customer) {
-
-        if (userExistsVer1(customer)) {
-            throw new UserExistsException("User " + customer.getEmail() + " exists");
+    public void registerUser(CustomerRegistrationDTO registrationDTO) {
+        if (userExistsVer1(registrationDTO)) {
+            throw new UserExistsException("User " + registrationDTO.getEmail() + " exists");
         }
-        //todo nalezy przepisac dane z  CustomerRegistrationDTO na User -> zapisujac hash hasla i potem dodac uzytkownika do listy userow w userdao
+        User user = CustomerRegistrationDtoToUserBuilder.rewriteToUser(registrationDTO);
+        userDAO.addUser(user);
+        //todo nalezy przepisac dane z  CustomerRegistrationDTO na
+        // User -> zapisujac hash hasla i potem dodac uzytkownika do listy userow w userdao
 
 
 //        if (userExistsVer2(customer)) {
