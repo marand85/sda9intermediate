@@ -1,4 +1,4 @@
-package bookstore;
+package bookstore.users.dtos;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,11 +1,12 @@
 package bookstore;
 
+import bookstore.users.dtos.CustomerRegistrationDTO;
+import bookstore.users.entities.UserAddress;
+import bookstore.users.services.UserValidationService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class UserValidationServiceTest {
 
