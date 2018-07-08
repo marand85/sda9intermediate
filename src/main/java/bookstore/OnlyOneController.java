@@ -33,9 +33,10 @@ public class OnlyOneController {
         return "loginForm";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String loginEffect(Map<String, Object> model) {
         new UserLoginService();
+        return "";
     }
 
 
