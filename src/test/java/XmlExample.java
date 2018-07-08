@@ -1,5 +1,6 @@
+import bookstore.currency.RatesFromXmlWrapper;
 import bookstore.currency.RatesWrapper;
-import com.google.gson.Gson;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
@@ -9,13 +10,13 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Arrays;
 
-public class JsonExample {
+public class XmlExample {
 
 
     @Test
     void currency() {
         try {
-            URL url = new URL("http://api.nbp.pl/api/exchangerates/tables/A?format=json");
+            URL url = new URL("http://api.nbp.pl/api/exchangerates/tables/A?format=xml");
             URLConnection urlConnection = url.openConnection();
             InputStreamReader inputStreamReader = new InputStreamReader(urlConnection.getInputStream());
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -29,12 +30,12 @@ public class JsonExample {
 
             bufferedReader.close();
 
-            RatesWrapper[] ratesWrappers = new Gson().fromJson(result, RatesWrapper[].class);
+            XmlMapper xmlMapper = new XmlMapper();
+            RatesWrapper[] ratesWrappers = xmlMapper.readValue(result, RatesFromXmlWrapper[].class);
             System.out.println(Arrays.toString(ratesWrappers));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 }

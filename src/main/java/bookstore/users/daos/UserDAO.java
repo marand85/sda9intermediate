@@ -1,17 +1,21 @@
 package bookstore.users.daos;
 
+import bookstore.App;
 import bookstore.users.entities.User;
 import com.google.common.collect.Lists;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 
 import java.io.*;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserDAO {
+
     private List<User> userList = initializeFromFile();
 
     public List<User> getUserList() {
@@ -24,8 +28,8 @@ public class UserDAO {
     }
 
     private void serializeToFile(List<User> userList) {
-        String usersDataPath = this.getClass()
-                .getClassLoader().getResource("usersData").getFile();
+        String usersDataPath = Paths.get(App.FILES_DIRECTORY + "/usersData").toAbsolutePath().toString(); //fixme - tu zmienilem sciezke
+
 
         try (FileOutputStream fileOutputStream = new FileOutputStream(usersDataPath);
              ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
@@ -40,17 +44,12 @@ public class UserDAO {
 
     private List<User> initializeFromFile() {
         try {
-            String usersDataPath = this.getClass()
-                    .getClassLoader().getResource("usersData").getFile();
+            String usersDataPath = Paths.get(App.FILES_DIRECTORY + "/usersData").toAbsolutePath().toString(); //fixme - i tu
             try (FileInputStream fileInputStream = new FileInputStream(usersDataPath);
                  ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
 
                 return (List<User>) objectInputStream.readObject();
-
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
             }
-            return Lists.newArrayList();
         } catch (Exception e) {
             return Lists.newArrayList();
         }
