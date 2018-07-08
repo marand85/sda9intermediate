@@ -1,8 +1,7 @@
-package bookstore;
+package bookstore.categories.entities;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 // dzieki temu nie musimy pisac kodow
@@ -11,12 +10,14 @@ import lombok.Setter;
 // bibliotece Lombok
 @Setter
 @Getter
-@Builder
-@NoArgsConstructor
+@AllArgsConstructor
 public class Category {
     private Integer id;
     private String name;
     private Integer parentId;
 
-
+    public Category(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }
