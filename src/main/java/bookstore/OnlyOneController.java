@@ -19,7 +19,8 @@ import java.util.Map;
 @Controller //singleton
 public class OnlyOneController {
 
-    @Autowired
+                //DEPENDENCY INJECTION - Spring umożliwi nam użycie tej klasy, która jest singletonem
+    @Autowired  //Działa tylko dla klas oznaczonych jako @Service/@Component/@Controller/@RestController itd
     private UserLoginService userLoginService;
 
     private final UserRegistrationService userRegistrationService = new UserRegistrationService();
