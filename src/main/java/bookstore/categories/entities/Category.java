@@ -1,4 +1,4 @@
-package bookstore;
+package bookstore.categories.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +15,6 @@ public class Category {
     private Integer id;
     private String name;
     private Integer parentId;
-    private String poledowywalenia; // FIXME: 01.07.2018 wywal to
 
     public Category(Integer id, String name) {
         this.id = id;

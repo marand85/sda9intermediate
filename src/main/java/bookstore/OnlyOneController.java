@@ -1,22 +1,31 @@
 package bookstore;
 
-import com.google.common.collect.Lists;
+import bookstore.categories.dtos.AdminCategoryDTO;
+import bookstore.categories.services.SearchCategoriesService;
+import bookstore.users.dtos.CustomerLoginDTO;
+import bookstore.users.dtos.CustomerRegistrationDTO;
+import bookstore.users.exceptions.UserExistsException;
+import bookstore.users.services.UserLoginService;
+import bookstore.users.services.UserRegistrationService;
+import bookstore.users.services.UserValidationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeSet;
 
 @Controller //singleton
 public class OnlyOneController {
+
+    @Autowired
+    private UserLoginService userLoginService;
 
     private final UserRegistrationService userRegistrationService = new UserRegistrationService();
 
     @RequestMapping("/")
     public String welcome(Map<String, Object> model) {
-
         return "index";
     }
 
@@ -28,7 +37,20 @@ public class OnlyOneController {
         return "cats";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET) //wyswietlanie pustego formularza logowania
+    public String loginForm(Map<String, Object> model) {
+        model.put("form", new CustomerLoginDTO());
+        return "loginForm";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String loginEffect(@ModelAttribute CustomerLoginDTO loginDto, Map<String, Object> model) {
+        userLoginService.login(loginDto);
+        return "index";
+    }
+
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET) //wyswietlanie pustego formularza
     public String registerForm(Map<String, Object> model) {
         model.put("form", new CustomerRegistrationDTO()); //pusty CustomerRegistrationDTO do przechowywania danych z formularza rejestracji
         // dodatkowo z CustomerRegistrationDto wyciagnijcie pola [street, city, country, zipCode
@@ -38,7 +60,7 @@ public class OnlyOneController {
         return "registerForm";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST) //obsluga przeslanych danych
     public String registerEffect(@ModelAttribute CustomerRegistrationDTO customerRegistrationDto, Map<String, Object> model) {
 //        CustomerRegistrationDTO registrationdto = (CustomerRegistrationDTO) model.get("customerRegistrationDto");
         Map<String, String> validationErrorsMap = new UserValidationService().validateUserData(customerRegistrationDto); //serwis do walidacji danych uzytkownika

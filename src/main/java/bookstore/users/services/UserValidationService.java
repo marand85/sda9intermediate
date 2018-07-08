@@ -1,9 +1,9 @@
-package bookstore;
+package bookstore.users.services;
 
+import bookstore.users.dtos.CustomerRegistrationDTO;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class UserValidationService {

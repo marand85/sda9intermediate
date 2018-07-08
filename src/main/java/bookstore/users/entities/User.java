@@ -1,10 +1,9 @@
-package bookstore;
+package bookstore.users.entities;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.Locale;
 
 @Setter
 @Getter

@@ -1,12 +1,10 @@
-import bookstore.AdminCategoryDTO;
-import bookstore.Category;
+import bookstore.categories.dtos.AdminCategoryDTO;
+import bookstore.categories.entities.Category;
 import com.google.common.collect.Lists;
-import net.bytebuddy.implementation.bind.annotation.Super;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
