@@ -1,16 +1,26 @@
 package bookstore;
 
-import com.google.common.collect.Lists;
+import bookstore.categories.dtos.AdminCategoryDTO;
+import bookstore.categories.services.SearchCategoriesService;
+import bookstore.users.dtos.CustomerLoginDTO;
+import bookstore.users.dtos.CustomerRegistrationDTO;
+import bookstore.users.exceptions.UserExistsException;
+import bookstore.users.services.UserLoginService;
+import bookstore.users.services.UserRegistrationService;
+import bookstore.users.services.UserValidationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeSet;
 
 @Controller //singleton
 public class OnlyOneController {
+
+    @Autowired
+    private UserLoginService userLoginService;
 
     private final UserRegistrationService userRegistrationService = new UserRegistrationService();
 
@@ -34,9 +44,9 @@ public class OnlyOneController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginEffect(Map<String, Object> model) {
-        new UserLoginService();
-        return "";
+    public String loginEffect(@ModelAttribute CustomerLoginDTO loginDto, Map<String, Object> model) {
+        userLoginService.login(loginDto);
+        return "index";
     }
 
 

@@ -1,5 +1,6 @@
-package bookstore;
+package bookstore.users.dtos;
 
+import bookstore.users.entities.UserAddress;
 import lombok.Getter;
 import lombok.Setter;
 
