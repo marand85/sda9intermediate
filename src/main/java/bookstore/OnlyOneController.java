@@ -8,7 +8,10 @@ import bookstore.users.exceptions.UserExistsException;
 import bookstore.users.services.UserLoginService;
 import bookstore.users.services.UserRegistrationService;
 import bookstore.users.services.UserValidationService;
+import bookstore.weather.WeatherService;
+import jdk.nashorn.internal.objects.annotations.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,15 +22,28 @@ import java.util.Map;
 @Controller //singleton
 public class OnlyOneController {
 
-                //DEPENDENCY INJECTION - Spring umożliwi nam użycie tej klasy, która jest singletonem
+    //DEPENDENCY INJECTION - Spring umożliwi nam użycie tej klasy, która jest singletonem
     @Autowired  //Działa tylko dla klas oznaczonych jako @Service/@Component/@Controller/@RestController itd
     private UserLoginService userLoginService;
+
+    @Autowired
+    private WeatherService weatherService;
 
     private final UserRegistrationService userRegistrationService = new UserRegistrationService();
 
     @RequestMapping("/")
     public String welcome(Map<String, Object> model) {
         return "index";
+    }
+
+    @GetMapping("/weather")
+    @ResponseBody
+    public ResponseEntity<String> weather(Map<String, Object> model) {
+        try {
+            return ResponseEntity.ok(weatherService.getWeather());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Błąd");
+        }
     }
 
     @GetMapping("/cats")

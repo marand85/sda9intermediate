@@ -8,8 +8,8 @@ public class App {
     public static String FILES_DIRECTORY;
 
     public static void main(String[] args) {
-//        FILES_DIRECTORY = args[0];
-        SpringApplication.run(App.class);
+        FILES_DIRECTORY = args[0];
+        SpringApplication.run(App.class, args);
     }
 
 }
