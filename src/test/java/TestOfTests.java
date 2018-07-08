@@ -1,11 +1,20 @@
 import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.TreeSet;
 
 public class TestOfTests {
 
+    @Test
+    void name2() {
+        List integers1 = Arrays.asList(new Integer[]{1, 2, 3});
+        List integers2 = Arrays.asList(new int[]{1, 2, 3});
+        System.out.println();
+
+    }
 
     @Test
     void name() {

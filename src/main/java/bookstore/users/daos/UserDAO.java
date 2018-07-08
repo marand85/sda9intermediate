@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserDAO {
@@ -53,6 +54,12 @@ public class UserDAO {
         } catch (Exception e) {
             return Lists.newArrayList();
         }
+    }
+
+    public Optional<User> getUserByEmail(String email) {
+        return userList.stream()
+                .filter(w -> w.getEmail().equalsIgnoreCase(email))
+                .findFirst();
     }
 }
 
